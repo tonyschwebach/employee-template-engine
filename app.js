@@ -11,10 +11,30 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 const { cpuUsage } = require("process");
 
+// array to hold team members
 const team = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+
+// function to ask user if they want to add a team member
+const buildTeam = () => {
+  inquirer
+    .prompt([
+      {
+        type: "confirm",
+        name: "addMember",
+        message: "Add a member to your team? ",
+      },
+    ])
+    .then((confirm) => {
+      if (confirm.addMember) {
+        employeePrompt();
+      }
+    });
+};
+
+// function to ask questions for the employee class properties
 const employeePrompt = () =>
   inquirer
     .prompt([
@@ -29,6 +49,7 @@ const employeePrompt = () =>
       },
     ])
     .then((employeeData) => {
+      // ask specific questions based on employee role
       switch (employeeData.role) {
         case "Manager":
           managerPrompt(employeeData);
@@ -42,6 +63,7 @@ const employeePrompt = () =>
       }
     });
 
+// function to ask manager only questions
 const managerPrompt = (employeeData) => {
   inquirer
     .prompt([
@@ -59,9 +81,11 @@ const managerPrompt = (employeeData) => {
         managerData.officeNumber
       );
       team.push(manager);
+      buildTeam();
     });
 };
 
+// function to ask engineer only questions
 const engineerPrompt = (employeeData) => {
   inquirer
     .prompt([
@@ -79,9 +103,11 @@ const engineerPrompt = (employeeData) => {
         engineerData.github
       );
       team.push(engineer);
+      buildTeam();
     });
 };
 
+// function to ask intern only questions
 const internPrompt = (employeeData) => {
   inquirer
     .prompt([
@@ -99,10 +125,11 @@ const internPrompt = (employeeData) => {
         internData.school
       );
       team.push(intern);
+      buildTeam();
     });
 };
 
-employeePrompt();
+buildTeam();
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
