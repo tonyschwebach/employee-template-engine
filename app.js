@@ -30,6 +30,10 @@ const buildTeam = () => {
     .then((confirm) => {
       if (confirm.addMember) {
         employeePrompt();
+      } else {
+        fs.writeFile(outputPath, render(team), (err) =>
+          err ? console.error(err) : console.log("successfully written")
+        );
       }
     });
 };
@@ -129,7 +133,9 @@ const internPrompt = (employeeData) => {
     });
 };
 
+//call build team function when file is opened
 buildTeam();
+
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
