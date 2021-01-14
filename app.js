@@ -9,7 +9,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-const { cpuUsage } = require("process");
+// const { cpuUsage } = require("process");  //not sure where this came from
 
 // array to hold team members
 const team = [];
@@ -155,3 +155,13 @@ buildTeam();
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+
+// TODO:
+// REGEX validation email, numbers, names
+// prompt manager first, allow only one manager
+// css style
+// video demo
+// readme
+// update portfolio
+// thoughts - abstract each question to a function and use async await
