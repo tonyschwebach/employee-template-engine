@@ -42,9 +42,45 @@ const buildTeam = () => {
 const employeePrompt = () =>
   inquirer
     .prompt([
-      { type: "input", name: "name", message: "Employee Name: " },
-      { type: "number", name: "id", message: "Employee ID number: " },
-      { type: "input", name: "email", message: "Employee email address: " },
+      {
+        type: "input",
+        name: "name",
+        message: "Employee Name: ",
+        // The user's input must be letters
+        validate: (val) => {
+          if (/^[a-zA-Z][^0-9]+/gi.test(val)) {
+            return true;
+          } else {
+            return "Must be letters. Please change your input.";
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Employee ID number: ",
+        // The user's input must be numbers
+        validate: (val) => {
+          if (/^\d*$/gi.test(val)) {
+            return true;
+          } else {
+            return "Must be numeric. Please change your input.";
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Employee email address: ",
+        // The user's input must be an email address
+        validate: (val) => {
+          if (/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/gi.test(val)) {
+            return true;
+          } else {
+            return "Invalid email address. Please change your input.";
+          }
+        },
+      },
       {
         type: "list",
         name: "role",
@@ -72,9 +108,17 @@ const managerPrompt = (employeeData) => {
   inquirer
     .prompt([
       {
-        type: "number",
+        type: "input",
         name: "officeNumber",
         message: "Manager Office Number: ",
+        // The users input must be numbers
+        validate: (val) => {
+          if (/^\d*$/gi.test(val)) {
+            return true;
+          } else {
+            return "Must be numeric. Please change your input.";
+          }
+        },
       },
     ])
     .then((managerData) => {
@@ -119,6 +163,14 @@ const internPrompt = (employeeData) => {
         type: "input",
         name: "school",
         message: "Intern School: ",
+        // The user's input must be letters
+        validate: (val) => {
+          if (/^[a-zA-Z][^0-9]+/gi.test(val)) {
+            return true;
+          } else {
+            return "Must be letters. Please change your input.";
+          }
+        },
       },
     ])
     .then((internData) => {
@@ -134,6 +186,7 @@ const internPrompt = (employeeData) => {
 };
 
 //call build team function when file is opened
+console.log("Welcome! Let's build your team.");
 buildTeam();
 
 // After the user has input all employees desired, call the `render` function (required
@@ -155,7 +208,6 @@ buildTeam();
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
-
 
 // TODO:
 // REGEX validation email, numbers, names
