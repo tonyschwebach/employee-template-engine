@@ -48,7 +48,7 @@ const employeePrompt = () =>
         message: "Employee Name: ",
         // The user's input must be letters
         validate: (val) => {
-          if (/^[a-zA-Z][^0-9]+/gi.test(val)) {
+          if (/^[a-zA-Z|\s]+$/gi.test(val)) {
             return true;
           } else {
             return "Must be letters. Please change your input.";
@@ -163,14 +163,14 @@ const internPrompt = (employeeData) => {
         type: "input",
         name: "school",
         message: "Intern School: ",
-        // The user's input must be letters
-        validate: (val) => {
-          if (/^[a-zA-Z][^0-9]+/gi.test(val)) {
-            return true;
-          } else {
-            return "Must be letters. Please change your input.";
-          }
-        },
+       // The user's input must be letters
+       validate: (val) => {
+        if (/^[a-zA-Z|\s]+$/gi.test(val)) {
+          return true;
+        } else {
+          return "Must be letters. Please change your input.";
+        }
+      },
       },
     ])
     .then((internData) => {
