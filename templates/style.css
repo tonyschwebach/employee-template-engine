@@ -1,0 +1,14 @@
+.card {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.jumbotron {
+  color:rgb(250, 249, 255);
+  background-color: rgb(8, 8, 87);
+}
+
+.card-header{
+  color:rgb(250, 249, 255);
+  background-color: rgb(8, 8, 87);
+}

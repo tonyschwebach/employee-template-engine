@@ -19,6 +19,7 @@ const team = [];
 
 // function to ask user if they want to add a team member
 const buildTeam = () => {
+  console.log("--------------------------------")
   inquirer
     .prompt([
       {
@@ -186,7 +187,9 @@ const internPrompt = (employeeData) => {
 };
 
 //call build team function when file is opened
+console.log("--------------------------------");
 console.log("Welcome! Let's build your team.");
+
 buildTeam();
 
 // After the user has input all employees desired, call the `render` function (required
