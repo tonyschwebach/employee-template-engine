@@ -19,7 +19,7 @@ const team = [];
 
 // function to ask user if they want to add a team member
 const buildTeam = () => {
-  console.log("--------------------------------")
+  console.log("--------------------------------");
   inquirer
     .prompt([
       {
@@ -32,11 +32,26 @@ const buildTeam = () => {
       if (confirm.addMember) {
         employeePrompt();
       } else {
-        fs.writeFile(outputPath, render(team), (err) =>
-          err ? console.error(err) : console.log("successfully written")
-        );
+        writeToFolder();
       }
     });
+};
+// function to write file /create output folder if needed
+const writeToFolder = () => {
+  fs.writeFile(
+    outputPath,
+    render(team),
+    (err) => {
+      if (err) {
+        fs.mkdir(OUTPUT_DIR, (err) =>
+          err ? console.error(err) : writeToFolder()
+        );
+      } else {
+        console.log("successfully written");
+      }
+    }
+    // err ? console.error(err) : console.log("successfully written")
+  );
 };
 
 // function to ask questions for the employee class properties
@@ -164,14 +179,14 @@ const internPrompt = (employeeData) => {
         type: "input",
         name: "school",
         message: "Intern School: ",
-       // The user's input must be letters
-       validate: (val) => {
-        if (/^[a-zA-Z|\s]+$/gi.test(val)) {
-          return true;
-        } else {
-          return "Must be letters. Please change your input.";
-        }
-      },
+        // The user's input must be letters
+        validate: (val) => {
+          if (/^[a-zA-Z|\s]+$/gi.test(val)) {
+            return true;
+          } else {
+            return "Must be letters. Please change your input.";
+          }
+        },
       },
     ])
     .then((internData) => {
@@ -211,12 +226,3 @@ buildTeam();
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
-
-// TODO:
-// REGEX validation email, numbers, names
-// prompt manager first, allow only one manager
-// css style
-// video demo
-// readme
-// update portfolio
-// thoughts - abstract each question to a function and use async await
